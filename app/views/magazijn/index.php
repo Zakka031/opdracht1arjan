@@ -32,6 +32,7 @@
             <th>Naam</th>
             <th>Barcode</th>
             <th>Leverantie Info</th>
+            <th>Allergenen Info</th>
         </tr>
     </thead>
     <tbody>
@@ -41,11 +42,12 @@
                     <td><?= $product->Naam; ?></td>
                     <td><?= $product->Barcode; ?></td>
                     <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
+                    <td><a href="<?= URLROOT; ?>/magazijn/allergenenInfo/<?= $product->Id; ?>"><i class="bi bi-x-circle-fill" style="color: red;"></i></a></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3" class="text-center">Geen producten gevonden</td>
+                <td colspan="4" class="text-center">Geen producten gevonden</td>
             </tr>
         <?php endif; ?>
     </tbody>

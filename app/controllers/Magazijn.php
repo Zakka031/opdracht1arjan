@@ -28,7 +28,6 @@ class Magazijn extends BaseController
             'title' => 'Levering Informatie',
             'leveringData' => $leveringData
         ];
-
         if (empty($leveringData)) {
             $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
             $data['messageVisibility'] = 'flex';
@@ -38,5 +37,17 @@ class Magazijn extends BaseController
         } else {
             $this->view('magazijn/levering_info', $data);
         }
+    }
+
+    public function allergenenInfo($productId)
+    {
+        $allergenenData = $this->magazijnModel->getAllergenenByProductId($productId);
+        $product = $this->magazijnModel->getProductById($productId);
+        $data = [
+            'title' => 'Overzicht Allergenen',
+            'allergenenData' => $allergenenData,
+            'product' => $product
+        ];
+        $this->view('magazijn/allergenen_info', $data);
     }
 }
