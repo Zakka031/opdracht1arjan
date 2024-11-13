@@ -62,28 +62,28 @@ class Magazijn extends BaseController
     {
         $allergenenData = $this->magazijnModel->getAllergenenByProductId($productId);
         $product = $this->magazijnModel->getProductById($productId);
-    
+
         // Debugging: Log the allergenenData
         error_log(print_r($allergenenData, true));
-    
+
         // Sort allergenenData by Naam in ascending order
         usort($allergenenData, function($a, $b) {
             return strcmp($a->Naam, $b->Naam);
         });
-    
+
         $data = [
             'title' => 'Overzicht Allergenen',
             'allergenenData' => $allergenenData,
             'product' => $product,
             'messageVisibility' => 'none'
         ];
-    
+
         if (empty($allergenenData)) {
             $data['message'] = 'In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken';
             $data['messageVisibility'] = 'flex';
             $data['messageColor'] = 'danger';
         }
-    
+
         $this->view('magazijn/allergenen_info', $data);
     }
 }
