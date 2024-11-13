@@ -14,6 +14,27 @@
             <div class="col-2"></div>
    </div>
 
+   
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Barcode</th>
+            <th>Leverantie Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($data['products'] as $product): ?>
+            <tr>
+                <td><?= $product->Naam; ?></td>
+                <td><?= $product->Barcode; ?></td>
+                <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+
     <div class="row mt-3">
         <div class="col-2"></div>
         <div class="col-8">
