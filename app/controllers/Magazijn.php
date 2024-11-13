@@ -9,11 +9,14 @@ class Magazijn extends BaseController
 
     public function index()
     {
+        // Haal alle producten op uit de database
+        $products = $this->magazijnModel->getAllProducts();
         $data = [
             'title' => 'Overzicht Magazijn Jamin',
             'message' => NULL,
             'messageColor' => NULL,
-            'messageVisibility' => 'display: none;'
+            'messageVisibility' => 'display: none;',
+            'products' => $products // Voeg de products array toe aan de data array
         ];
         $this->view('magazijn/index', $data);
     }
@@ -25,6 +28,15 @@ class Magazijn extends BaseController
             'title' => 'Levering Informatie',
             'leveringData' => $leveringData
         ];
-        $this->view('magazijn/levering_info', $data);
+
+        if (empty($leveringData)) {
+            $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
+            $data['messageVisibility'] = 'flex';
+            $data['messageColor'] = 'danger';
+            $this->view('magazijn/levering_info', $data);
+            header("Refresh:4; url=" . URLROOT . "/magazijn/index");
+        } else {
+            $this->view('magazijn/levering_info', $data);
+        }
     }
 }

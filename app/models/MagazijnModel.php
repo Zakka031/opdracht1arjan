@@ -7,6 +7,12 @@ class MagazijnModel
         $this->db = new Database();
     }
 
+    public function getAllProducts()
+    {
+        $this->db->query('SELECT * FROM Product ORDER BY Barcode ASC');
+        return $this->db->resultSet();
+    }
+
     public function getLeveringByProductId($productId)
     {
         $this->db->query('CALL spGetLeveringByProductId(:productId)');

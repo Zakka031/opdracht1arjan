@@ -1,7 +1,4 @@
 <?php require_once APPROOT . '/views/includes/header.php'; ?>
-
-
-
 <!-- Maak een nieuwe view aan voor deze link -->
 <div class="container">
     <div class="row mt-3" style='<?= $data['messageVisibility']; ?>'>
@@ -13,9 +10,23 @@
             </div>
             <div class="col-2"></div>
    </div>
-
    
-<table class="table table-hover">
+    <div class="row mt-3">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3><?= $data['title']; ?></h3>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <table class="table table-hover">
     <thead>
         <tr>
             <th>Naam</th>
@@ -24,32 +35,20 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($data['products'] as $product): ?>
+        <?php if (isset($data['products']) && !empty($data['products'])): ?>
+            <?php foreach ($data['products'] as $product): ?>
+                <tr>
+                    <td><?= $product->Naam; ?></td>
+                    <td><?= $product->Barcode; ?></td>
+                    <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
             <tr>
-                <td><?= $product->Naam; ?></td>
-                <td><?= $product->Barcode; ?></td>
-                <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
+                <td colspan="3" class="text-center">Geen producten gevonden</td>
             </tr>
-        <?php endforeach; ?>
+        <?php endif; ?>
     </tbody>
 </table>
-
-
-    <div class="row mt-3">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <h3><?= $data['title']; ?></h3>
-        </div>
-        <div class="col-2"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
-        </div>
-        <div class="col-2"></div>
-    </div>
 </div>
-
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>
