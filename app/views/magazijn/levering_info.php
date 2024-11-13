@@ -7,30 +7,36 @@
         </div>
     <?php endif; ?>
     <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Naam</th>
-            <th>Barcode</th>
-            <th>Leverantie Info</th>
-            <th>Allergenen Info</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (isset($data['products']) && !empty($data['products'])): ?>
-            <?php foreach ($data['products'] as $product): ?>
-                <tr>
-                    <td><?= $product->Naam; ?></td>
-                    <td><?= $product->Barcode; ?></td>
-                    <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
-                    <td><a href="<?= URLROOT; ?>/magazijn/allergenenInfo/<?= $product->Id; ?>"><i class="bi bi-x-circle-fill" style="color: red;"></i></a></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
+        <thead>
             <tr>
-                <td colspan="4" class="text-center">Geen producten gevonden</td>
+                <th>Naam Leverancier</th>
+                <th>Contactpersoon</th>
+                <th>Leveranciernummer</th>
+                <th>Mobiel</th>
+                <th>Leveringsdatum</th>
+                <th>Verwachte Leveringsdatum</th>
+                <th>Aantal</th>
             </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php if (isset($data['leveringData']) && !empty($data['leveringData'])): ?>
+                <?php foreach ($data['leveringData'] as $levering): ?>
+                    <tr>
+                        <td><?= $levering->LeverancierNaam; ?></td>
+                        <td><?= $levering->Contactpersoon; ?></td>
+                        <td><?= $levering->Leveranciernummer; ?></td>
+                        <td><?= $levering->Mobiel; ?></td>
+                        <td><?= $levering->LeveringsDatum; ?></td>
+                        <td><?= $levering->VerwachteLeveringsDatum; ?></td>
+                        <td><?= $levering->Aantal; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7" class="text-center">Geen leveringsgegevens gevonden</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>

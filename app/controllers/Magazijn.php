@@ -2,6 +2,7 @@
 class Magazijn extends BaseController
 {
     private $magazijnModel; 
+
     public function __construct()
     {
         $this->magazijnModel = $this->model('MagazijnModel');
@@ -26,17 +27,17 @@ class Magazijn extends BaseController
         $leveringData = $this->magazijnModel->getLeveringByProductId($productId);
         $data = [
             'title' => 'Levering Informatie',
-            'leveringData' => $leveringData
+            'leveringData' => $leveringData,
+            'messageVisibility' => 'none'
         ];
+
         if (empty($leveringData)) {
-            $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
+            $data['message'] = 'Er zijn geen leveringsgegevens beschikbaar voor dit product.';
             $data['messageVisibility'] = 'flex';
             $data['messageColor'] = 'danger';
-            $this->view('magazijn/levering_info', $data);
-            header("Refresh:4; url=" . URLROOT . "/magazijn/index");
-        } else {
-            $this->view('magazijn/levering_info', $data);
         }
+
+        $this->view('magazijn/levering_info', $data);
     }
 
     public function allergenenInfo($productId)
