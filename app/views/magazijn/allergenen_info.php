@@ -30,5 +30,7 @@
             <?php endif; ?>
         </tbody>
     </table>
+    </tbody>
+    </table>
 </div>
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>
