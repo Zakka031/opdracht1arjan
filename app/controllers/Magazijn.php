@@ -22,39 +22,41 @@ class Magazijn extends BaseController
         $this->view('magazijn/index', $data);
     }
 
-    
     public function leveringInfo($productId)
-{
-    $leveringData = $this->magazijnModel->getLeveringByProductId($productId);
-    $product = $this->magazijnModel->getProductById($productId);
-    $data = [
-        'title' => 'Levering Informatie',
-        'leveringData' => $leveringData,
-        'product' => $product,
-        'messageVisibility' => 'none'
-    ];
+    {
+        $leveringData = $this->magazijnModel->getLeveringByProductId($productId);
+        $product = $this->magazijnModel->getProductById($productId);
+        $aantalAanwezig = $this->magazijnModel->getAantalAanwezigByProductId($productId);
 
-    if ($product->Naam == 'Winegums' && empty($leveringData)) {
-        $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
-        $data['messageVisibility'] = 'flex';
-        $data['messageColor'] = 'danger';
+        $data = [
+            'title' => 'Levering Informatie',
+            'leveringData' => $leveringData,
+            'product' => $product,
+            'messageVisibility' => 'none'
+        ];
+
+        if ($product->Naam == 'Winegums' && $aantalAanwezig->AantalAanwezig == 0) {
+            $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
+            $data['messageVisibility'] = 'flex';
+            $data['messageColor'] = 'danger';
+            $this->view('magazijn/levering_info', $data);
+            echo "<script>
+                    setTimeout(function(){
+                        window.location.href = '" . URLROOT . "/magazijn/index';
+                    }, 4000);
+                  </script>";
+            return;
+        }
+
+        if (empty($leveringData)) {
+            $data['message'] = 'Er zijn geen leveringsgegevens beschikbaar voor dit product.';
+            $data['messageVisibility'] = 'flex';
+            $data['messageColor'] = 'danger';
+        }
+
         $this->view('magazijn/levering_info', $data);
-        echo "<script>
-                setTimeout(function(){
-                    window.location.href = '" . URLROOT . "/magazijn/index';
-                }, 4000);
-              </script>";
-        return;
     }
 
-    if (empty($leveringData)) {
-        $data['message'] = 'Er zijn geen leveringsgegevens beschikbaar voor dit product.';
-        $data['messageVisibility'] = 'flex';
-        $data['messageColor'] = 'danger';
-    }
-
-    $this->view('magazijn/levering_info', $data);
-}
     public function allergenenInfo($productId)
     {
         $allergenenData = $this->magazijnModel->getAllergenenByProductId($productId);

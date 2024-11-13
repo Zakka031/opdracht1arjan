@@ -34,4 +34,11 @@ class MagazijnModel
         $this->db->bind(':productId', $productId, PDO::PARAM_INT);
         return $this->db->single();
     }
+
+    public function getAantalAanwezigByProductId($productId)
+    {
+        $this->db->query('SELECT AantalAanwezig FROM Magazijn WHERE ProductId = :productId');
+        $this->db->bind(':productId', $productId, PDO::PARAM_INT);
+        return $this->db->single();
+    }
 }
