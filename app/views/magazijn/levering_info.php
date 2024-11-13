@@ -6,20 +6,20 @@
             <?= $data['message']; ?>
         </div>
     <?php endif; ?>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Naam Leverancier</th>
-                <th>Contactpersoon</th>
-                <th>Leveranciernummer</th>
-                <th>Mobiel</th>
-                <th>Leveringsdatum</th>
-                <th>Verwachte Leveringsdatum</th>
-                <th>Aantal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (isset($data['leveringData']) && !empty($data['leveringData'])): ?>
+    <?php if (!empty($data['leveringData'])): ?>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam Leverancier</th>
+                    <th>Contactpersoon</th>
+                    <th>Leveranciernummer</th>
+                    <th>Mobiel</th>
+                    <th>Leveringsdatum</th>
+                    <th>Verwachte Leveringsdatum</th>
+                    <th>Aantal</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php foreach ($data['leveringData'] as $levering): ?>
                     <tr>
                         <td><?= $levering->LeverancierNaam; ?></td>
@@ -31,12 +31,10 @@
                         <td><?= $levering->Aantal; ?></td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="7" class="text-center">Geen leveringsgegevens gevonden</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="text-center">Geen leveringsgegevens gevonden</p>
+    <?php endif; ?>
 </div>
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>

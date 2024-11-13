@@ -39,6 +39,7 @@ class Magazijn extends BaseController
             $data['message'] = 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023';
             $data['messageVisibility'] = 'flex';
             $data['messageColor'] = 'danger';
+            $data['leveringData'] = []; // Clear leveringData to ensure no delivery data is shown
             $this->view('magazijn/levering_info', $data);
             echo "<script>
                     setTimeout(function(){
