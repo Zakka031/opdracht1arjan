@@ -48,6 +48,15 @@ class Magazijn extends BaseController
             'allergenenData' => $allergenenData,
             'product' => $product
         ];
-        $this->view('magazijn/allergenen_info', $data);
+
+        if (empty($allergenenData)) {
+            $data['message'] = 'In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken';
+            $data['messageVisibility'] = 'flex';
+            $data['messageColor'] = 'danger';
+            $this->view('magazijn/allergenen_info', $data);
+            header("Refresh:4; url=" . URLROOT . "/magazijn/index");
+        } else {
+            $this->view('magazijn/allergenen_info', $data);
+        }
     }
 }

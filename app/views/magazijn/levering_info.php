@@ -7,36 +7,30 @@
         </div>
     <?php endif; ?>
     <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Naam Leverancier</th>
-                <th>Contactpersoon</th>
-                <th>Leveranciernummer</th>
-                <th>Mobiel</th>
-                <th>LeveringsDatum</th>
-                <th>Verwachte LeveringsDatum</th>
-                <th>Aantal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (empty($data['leveringData'])): ?>
+    <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Barcode</th>
+            <th>Leverantie Info</th>
+            <th>Allergenen Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (isset($data['products']) && !empty($data['products'])): ?>
+            <?php foreach ($data['products'] as $product): ?>
                 <tr>
-                    <td colspan="7" class="text-center">Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023</td>
+                    <td><?= $product->Naam; ?></td>
+                    <td><?= $product->Barcode; ?></td>
+                    <td><a href="<?= URLROOT; ?>/magazijn/leveringInfo/<?= $product->Id; ?>">?</a></td>
+                    <td><a href="<?= URLROOT; ?>/magazijn/allergenenInfo/<?= $product->Id; ?>"><i class="bi bi-x-circle-fill" style="color: red;"></i></a></td>
                 </tr>
-            <?php else: ?>
-                <?php foreach ($data['leveringData'] as $levering): ?>
-                    <tr>
-                        <td><?= $levering->LeverancierNaam; ?></td>
-                        <td><?= $levering->Contactpersoon; ?></td>
-                        <td><?= $levering->Leveranciernummer; ?></td>
-                        <td><?= $levering->Mobiel; ?></td>
-                        <td><?= $levering->LeveringsDatum; ?></td>
-                        <td><?= $levering->VerwachteLeveringsDatum; ?></td>
-                        <td><?= $levering->Aantal; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" class="text-center">Geen producten gevonden</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 </div>
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>
