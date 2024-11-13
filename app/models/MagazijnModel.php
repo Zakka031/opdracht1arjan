@@ -22,7 +22,7 @@ class MagazijnModel
     }
 
     public function getAllergenenByProductId($productId)
-    {
+    {   
         $this->db->query('CALL spGetAllergenenByProductId(:productId)');
         $this->db->bind(':productId', $productId, PDO::PARAM_INT);
         return $this->db->resultSet();
